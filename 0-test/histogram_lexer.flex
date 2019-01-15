@@ -10,6 +10,7 @@
 #include "histogram.hpp"
 
 #include <string>
+#include <cstdlib>
 
 
 
@@ -21,16 +22,21 @@ extern "C" int fileno(FILE *stream);
 /* End the embedded code section. */
 %}
 
-word  [a-z]|[A-Z]
+alphabet  [a-z]|[A-Z]
+num       [0-9]
 
 %%
 
   //add \n to end of line
+  //yytext in stack? heap?
 
-[0-9]+          { fprintf(stderr, "Number : %s\n", yytext); yylval.numberValue=atof(yytext); /* */ return Number; }
 
-{word}+          { fprintf(stderr, "Word : %s\n", yytext); yylval.wordValue=yytext;/* yylval WAS STRING* */ return Word; }
+  //-?{num}*.{num}*          { fprintf(stderr, "Number : %s\n", yytext); yylval.numberValue=atof(yytext); /* */ return Number; }
+-?{num}*/{num}*          { yylval.numberValue=atof(strtok(yytext,"/")) / atof(strtok(NULL,"")); fprintf(stderr, "Number (fraction): %f\n", yylval.numberValue); return Number; } //bug
 
+
+{alphabet}+         { fprintf(stderr, "Word : %s\n", yytext); yylval.wordValue=yytext;/* yylval WAS STRING* */ return Word; }
+\[.*\]           { fprintf(stderr, "[Word] : %s\n", yytext); yylval.wordValue=yytext;/* yylval WAS STRING* */ return Word; } //watch out NULL in the middle, remove []
 
 \n              { fprintf(stderr, "Newline\n"); }
 
