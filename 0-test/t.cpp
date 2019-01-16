@@ -4,6 +4,13 @@
 #include <cstdlib>
 #include <string.h>
 
+double evalFri(char* strin){
+  char* div=strchr(strin,'/');
+  std::string numerator(strin,div-strin);
+  std::string denominator(div+1);
+  return stof(numerator)/stof(denominator);
+}
+
 
 int main()
 {

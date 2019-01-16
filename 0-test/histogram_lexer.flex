@@ -19,6 +19,13 @@
 // https://stackoverflow.com/questions/46213840/get-rid-of-warning-implicit-declaration-of-function-fileno-in-flex
 extern "C" int fileno(FILE *stream);
 
+double evalFri(char* strin){
+  char* div=strchr(strin,'/');
+  std::string numerator(strin,div-strin);
+  std::string denominator(div+1);
+  return stod(numerator)/stod(denominator);
+}
+
 /* End the embedded code section. */
 %}
 
@@ -31,8 +38,8 @@ num       [0-9]
   //yytext in stack? heap?
 
 
-  //-?{num}*.{num}*          { fprintf(stderr, "Number : %s\n", yytext); yylval.numberValue=atof(yytext); /* */ return Number; }
--?{num}*/{num}*          { yylval.numberValue=atof(strtok(yytext,"/")) / atof(strtok(NULL,"")); fprintf(stderr, "Number (fraction): %f\n", yylval.numberValue); return Number; } //bug
+-?{num}*\.{num}*          { fprintf(stderr, "Number : %s\n", yytext); yylval.numberValue=atof(yytext); /* */ return Number; }
+-?{num}*\/{num}*          { yylval.numberValue=evalFri(yytext); fprintf(stderr, "Number (fraction): %f\n", yylval.numberValue); return Number; } //bug
 
 
 {alphabet}+         { fprintf(stderr, "Word : %s\n", yytext); yylval.wordValue=yytext;/* yylval WAS STRING* */ return Word; }
