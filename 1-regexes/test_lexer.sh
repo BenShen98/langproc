@@ -3,15 +3,6 @@
 # Try to find a portable way of getting rid of
 # any stray carriage returns
 if which dos2unix ; then
-<<<<<<< HEAD
-    DOS2UNIX="| dos2unix"
-elif which fromdos ; then
-    DOS2UNIX="| fromdos"
-else
-    case "$(uname -s)" in
-    Darwin)
-        DOS2UNIX=""
-=======
     DOS2UNIX="dos2unix"
 elif which fromdos ; then
     DOS2UNIX="fromdos"
@@ -19,7 +10,6 @@ else
     case "$(uname -s)" in
     Darwin|Linux)
         DOS2UNIX="cat"
->>>>>>> 51ac2d6671bddc728250172b248744dfab1fab7e
     ;;
 
     *)
@@ -30,11 +20,7 @@ else
         # The code \x0D is the ASCII code of carriage-return,
         # so it the regex should delete any CRs at the end of
         # a line (or anywhere in a line)
-<<<<<<< HEAD
-        DOS2UNIX="| sed -e s/\x0D//g -"
-=======
         DOS2UNIX="sed -e s/\x0D//g -"
->>>>>>> 51ac2d6671bddc728250172b248744dfab1fab7e
 	# Tested for combinations of:
 	# - Ubuntu
 	# - Cygwin
@@ -66,15 +52,9 @@ for i in test/in/*.txt; do
     echo ""
     echo "Input file : ${i}"
     BASENAME=$(basename $i .txt);
-<<<<<<< HEAD
-    cat $i ${DOS2UNIX} | ./histogram  > test/out/$BASENAME.stdout.txt  2> test/out/$BASENAME.stderr.txt
-
-    diff <(cat test/ref/$BASENAME.stdout.txt ${DOS2UNIX}) <(cat test/out/$BASENAME.stdout.txt) > test/out/$BASENAME.diff.txt
-=======
     cat $i | ${DOS2UNIX} | ./histogram  > test/out/$BASENAME.stdout.txt  2> test/out/$BASENAME.stderr.txt
 
     diff <(cat test/ref/$BASENAME.stdout.txt | ${DOS2UNIX}) <(cat test/out/$BASENAME.stdout.txt) > test/out/$BASENAME.diff.txt
->>>>>>> 51ac2d6671bddc728250172b248744dfab1fab7e
     if [[ "$?" -ne "0" ]]; then
         echo -e "\nERROR"
     else
