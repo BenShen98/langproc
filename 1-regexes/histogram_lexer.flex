@@ -30,13 +30,13 @@ double evalFri(char* strin){
 %}
 
 alphabet  [a-z]|[A-Z]
-num       [0-9]
+digit       [0-9]
 
 %%
 
--?{num}*\.?{num}*         { yylval.numberValue=atof(yytext); return Number;}
+-?{digit}+\.?{digit}*         { yylval.numberValue=atof(yytext); return Number;}
 
--?{num}*\/{num}*          { yylval.numberValue=evalFri(yytext); return Number; }
+-?{digit}+\/{digit}+          { yylval.numberValue=evalFri(yytext); return Number; }
 
 
 {alphabet}+               { yylval.wordValue=yytext; return Word; }
