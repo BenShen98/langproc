@@ -11,4 +11,6 @@ bin/*
 
 *.DS_Store
 
+.vagrant
+
 /1-regexes/histogram
