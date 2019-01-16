@@ -38,12 +38,25 @@ num       [0-9]
   //yytext in stack? heap?
 
 
--?{num}*\.{num}*          { fprintf(stderr, "Number : %s\n", yytext); yylval.numberValue=atof(yytext); /* */ return Number; }
--?{num}*\/{num}*          { yylval.numberValue=evalFri(yytext); fprintf(stderr, "Number (fraction): %f\n", yylval.numberValue); return Number; } //bug
+-?{num}*\.?{num}*          { fprintf(stderr, "Number : %s\n", yytext);
+                            yylval.numberValue=atof(yytext);
+                            return Number;
+                          }
+
+-?{num}*\/{num}*          { yylval.numberValue=evalFri(yytext);
+                            fprintf(stderr, "Number (fraction): %f\n", yylval.numberValue);
+                            return Number;
+                          }
 
 
-{alphabet}+         { fprintf(stderr, "Word : %s\n", yytext); yylval.wordValue=yytext;/* yylval WAS STRING* */ return Word; }
-\[.*\]           { fprintf(stderr, "[Word] : %s\n", yytext); yylval.wordValue=yytext;/* yylval WAS STRING* */ return Word; } //watch out NULL in the middle, remove []
+{alphabet}+               { fprintf(stderr, "Word : %s\n", yytext);
+                            yylval.wordValue=yytext;
+                            return Word;
+                          }
+
+\[.*\]                    { fprintf(stderr, "[Word] : %s\n", yytext);
+                            yylval.wordValue=yytext;/* yylval WAS STRING* */ return Word;
+                          } //watch out NULL in the middle, remove []
 
 \n              { fprintf(stderr, "Newline\n"); }
 

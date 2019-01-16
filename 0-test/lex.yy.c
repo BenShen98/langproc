@@ -389,8 +389,8 @@ struct yy_trans_info
 	};
 static yyconst flex_int16_t yy_accept[21] =
     {   0,
-        0,    0,    7,    6,    5,    6,    1,    2,    6,    3,
-        6,    1,    2,    0,    1,    2,    3,    0,    4,    0
+        1,    1,    7,    6,    5,    1,    1,    2,    1,    3,
+        6,    1,    2,    1,    1,    2,    3,    0,    4,    0
     } ;
 
 static yyconst YY_CHAR yy_ec[256] =
@@ -787,35 +787,46 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 YY_RULE_SETUP
 #line 41 "histogram_lexer.flex"
-{ fprintf(stderr, "Number : %s\n", yytext); yylval.numberValue=atof(yytext); /* */ return Number; }
+{ fprintf(stderr, "Number : %s\n", yytext);
+                            yylval.numberValue=atof(yytext);
+                            return Number;
+                          }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 42 "histogram_lexer.flex"
-{ yylval.numberValue=evalFri(yytext); fprintf(stderr, "Number (fraction): %f\n", yylval.numberValue); return Number; } //bug
+#line 46 "histogram_lexer.flex"
+{ yylval.numberValue=evalFri(yytext);
+                            fprintf(stderr, "Number (fraction): %f\n", yylval.numberValue);
+                            return Number;
+                          }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 45 "histogram_lexer.flex"
-{ fprintf(stderr, "Word : %s\n", yytext); yylval.wordValue=yytext;/* yylval WAS STRING* */ return Word; }
+#line 52 "histogram_lexer.flex"
+{ fprintf(stderr, "Word : %s\n", yytext);
+                            yylval.wordValue=yytext;
+                            return Word;
+                          }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 46 "histogram_lexer.flex"
-{ fprintf(stderr, "[Word] : %s\n", yytext); yylval.wordValue=yytext;/* yylval WAS STRING* */ return Word; } //watch out NULL in the middle, remove []
+#line 57 "histogram_lexer.flex"
+{ fprintf(stderr, "[Word] : %s\n", yytext);
+                            yylval.wordValue=yytext;/* yylval WAS STRING* */ return Word;
+                          } //watch out NULL in the middle, remove []
 	YY_BREAK
 case 5:
 /* rule 5 can match eol */
 YY_RULE_SETUP
-#line 48 "histogram_lexer.flex"
+#line 61 "histogram_lexer.flex"
 { fprintf(stderr, "Newline\n"); }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 51 "histogram_lexer.flex"
+#line 64 "histogram_lexer.flex"
 ECHO;
 	YY_BREAK
-#line 819 "lex.yy.c"
+#line 830 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1816,7 +1827,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 51 "histogram_lexer.flex"
+#line 64 "histogram_lexer.flex"
 
 
 

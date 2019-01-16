@@ -10,21 +10,40 @@
 #include "histogram.hpp"
 
 
+#include <string>
+#include <cstdlib>
+
+
 // This is to work around an irritating bug in Flex
 // https://stackoverflow.com/questions/46213840/get-rid-of-warning-implicit-declaration-of-function-fileno-in-flex
 extern "C" int fileno(FILE *stream);
 
+//functions
+double evalFri(char* strin){
+  char* div=strchr(strin,'/');
+  std::string numerator(strin,div-strin);
+  std::string denominator(div+1);
+  return stod(numerator)/stod(denominator);
+}
+
 /* End the embedded code section. */
 %}
 
+alphabet  [a-z]|[A-Z]
+num       [0-9]
 
 %%
 
-[0-9]+          { fprintf(stderr, "Number : %s\n", yytext); /* TODO: get value out of yytext and into yylval.numberValue */;  return Number; }
+-?{num}*\.?{num}*         { yylval.numberValue=atof(yytext); return Number;}
 
-[a-z]+          { fprintf(stderr, "Word : %s\n", yytext); /* TODO: get value out of yytext and into yylval.wordValue */;  return Word; }
+-?{num}*\/{num}*          { yylval.numberValue=evalFri(yytext); return Number; }
 
-\n              { fprintf(stderr, "Newline\n"); }
+
+{alphabet}+               { yylval.wordValue=yytext; return Word; }
+
+\[.*\]                    { yylval.wordValue=yytext; return Word; } //watch out NULL in the middle, remove []
+
+.|\n                        { } // keep consume the buffer, ignore undefined string
 
 
 %%
