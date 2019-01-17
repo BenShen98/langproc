@@ -22,6 +22,7 @@ typedef std::unordered_map<std::string,unsigned> histogram_type;
 // Define the instance of the variable that is declared in the histogram.hpp header
 TokenValue yylval;
 
+
 int main()
 {
     histogram_type histogram; // Create the hash-table instance
@@ -39,7 +40,7 @@ int main()
         }else if(type==Word){
           if( *(yylval.wordValue)=='[' ){
             // escape '[' ']'
-            std::string key (yylval.wordValue+1, strlen(yylval.wordValue)-2 );
+            std::string key (yylval.wordValue+1, yyleng-2 );
             //histogram[key] will create zero-initialization pair for non-exist key
             histogram[key]++;
           }else{

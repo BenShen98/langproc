@@ -27,4 +27,8 @@ extern TokenValue yylval;
 // returned.
 extern int yylex();
 
+// when input is string, use yyleng to get char* length
+// string constructor
+extern size_t yyleng;
+
 #endif
