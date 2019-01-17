@@ -41,7 +41,7 @@ digit       [0-9]
 
 {alphabet}+               { yylval.wordValue=yytext; return Word; }
 
-\[.*\]                    { yylval.wordValue=yytext; return Word; } //watch out NULL in the middle, remove []
+\[[^\]\n]*\]                    { yylval.wordValue=yytext; return Word; } //watch out NULL in the middle, remove []
 
 .|\n                        { } // keep consume the buffer, ignore undefined string
 
