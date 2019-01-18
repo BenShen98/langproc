@@ -8,6 +8,7 @@ bin/*
 *.output
 *.log
 *.stackdump
+*/a.out
 
 *.DS_Store
 

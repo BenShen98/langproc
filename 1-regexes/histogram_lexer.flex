@@ -35,13 +35,10 @@ digit       [0-9]
 %%
 
 -?{digit}+\.?{digit}*         { yylval.numberValue=atof(yytext); return Number;}
-
 -?{digit}+\/{digit}+          { yylval.numberValue=evalFri(yytext); return Number; }
 
 
-{alphabet}+               { yylval.wordValue=yytext; return Word; }
-
-\[[^\]\n]*\]                    { yylval.wordValue=yytext; return Word; } //watch out NULL in the middle, remove []
+({alphabet}+)|(\[[^\]\n]*\])  { yylval.wordValue=yytext; return Word; }
 
 .|\n                        { } // keep consume the buffer, ignore undefined string
 
