@@ -7,6 +7,10 @@
 #include <iostream>
 #include <iomanip>
 
+#include <string>
+#include <string.h>
+
+
 // Use a hash-table to maintain a word -> count mapping.
 // This deliberately uses std::unordered_map rather than std::map,
 // because we don't need to enumerate the entries in key order.
@@ -17,6 +21,7 @@ typedef std::unordered_map<std::string,unsigned> histogram_type;
 
 // Define the instance of the variable that is declared in the histogram.hpp header
 TokenValue yylval;
+
 
 int main()
 {
@@ -30,29 +35,27 @@ int main()
             break; // No more tokens
 
         }else if(type==Number){
-            // We have a number. The value will be
-            // in yylval.numberValue
+          sum+=yylval.numberValue;
 
-            // TODO: add to sum
-            
         }else if(type==Word){
-            // We have a string. The value is in a string
-            // _pointed to_ by yylval.wordValue. Note that
-            // the string is allocated by the lexer, but
-            // deallocated by us.
+          if( *(yylval.wordValue)=='[' ){
+            // escape '[' ']'
+            std::string key (yylval.wordValue+1, yyleng-2 );
+            //histogram[key] will create zero-initialization pair for non-exist key
+            histogram[key]++;
+          }else{
+            std::string key (yylval.wordValue);
+            histogram[key]++;
+          }
 
-            // TODO: add yylval.wordValue to histogram
-
-            // TODO: Free the pointer yylval.wordValue to stop leaks
         }else{
             assert(0); // There are only three token types.
             return 1;
         }
     }
 
+    std::cout<<std::fixed<<std::setprecision(3)<<sum<<std::endl;
 
-    // TODO: print out `sum` to std::cout with three decimal digits
-    
 
     // Build a vector of (word,count) entries based on the hash-table
     std::vector<std::pair<std::string,unsigned> > sorted(histogram.begin(), histogram.end());
@@ -73,9 +76,8 @@ int main()
     while(it!=sorted.end()){
         std::string name=it->first;
         unsigned count=it->second;
-        // TODO: Print out `name` and `count` to std::cout
-        
-        
+        std::cout<<'['<<name<<"] "<<count<<std::endl;
+
         ++it;
     }
 

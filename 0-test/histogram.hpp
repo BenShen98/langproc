@@ -11,7 +11,7 @@ enum TokenType{
 
 union TokenValue{
     double numberValue;
-    char *wordValue;
+    char *wordValue; // why need string*? cant use char*??
 };
 
 // This is a global variable used to move the
@@ -20,15 +20,11 @@ union TokenValue{
 // By convention it is called yylval, as that is
 // the name that will be automatially generated
 // by Bison (see next lab).
-extern TokenValue yylval;
+TokenValue yylval;
 
 // This is the lexer function defined by flex. Each
 // time it is called, a token type value will be
 // returned.
-extern int yylex();
-
-// when input is string, use yyleng to get char* length
-// use string constructor(const char* s, size_t n) to ensure code still work with non-visiable char (eg 0x00)
-extern size_t yyleng;
+int yylex();
 
 #endif

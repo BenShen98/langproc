@@ -23,7 +23,7 @@ For our purposes we'll define words and numbers as follows:
 - An decimal is a contiguous sequence of decimal digits, preceded by an optional `-` sign, and optionally followed by a `.` sign and zero or more decimal digits. It should be interpreted as a decimal double-precision number.
 
 - A fraction consists of an optional leading `-` sign, a sequence of decimal digits, a `/` sign, and another sequence of decimal digits. It should be interpreted by converting the two digit sequences into decimal integers, then taking the ratio using double-precision.
-  
+
 - Fractions with zero denominators are illegal, so implementations can handle them however is convenient, and they will not appear in any test inputs.
 
 All other characters should not be counted (and should not appear in the output).
