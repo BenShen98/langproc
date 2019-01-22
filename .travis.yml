@@ -11,3 +11,6 @@ before_install:
 - ./scripts/dependencies.sh
 script:
 - ./scripts/1-regexes.sh
+branches:
+  only:
+    - master
