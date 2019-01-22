@@ -1,12 +1,13 @@
 language: cpp
 sudo: required
 compiler:
-- clang
+- g++
 os:
 - linux
 before_install:
 - echo $LANG
 - echo $LC_ALL
+- chmod u+x -R ./scripts/
 - ./scripts/dependencies.sh
 script:
 - ./scripts/1-regexes.sh

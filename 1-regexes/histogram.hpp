@@ -29,6 +29,6 @@ extern int yylex();
 
 // when input is string, use yyleng to get char* length
 // use string constructor(const char* s, size_t n) to ensure code still work with non-visiable char (eg 0x00)
-extern size_t yyleng;
+extern yy_size_t yyleng;
 
 #endif
