@@ -1,11 +1,13 @@
-Lab exercises for Language Processors 2018/2019
+Lab exercises for Language Processors 2018/2019 [![Build Status](https://travis-ci.com/BenShen98/langproc.svg?token=MhRupwiszpRvsr3Bhyd3&branch=master)](https://travis-ci.com/BenShen98/langproc)
 ===============================================
 
 This repository contains the specifications for the three lab exercises for Language Processors.
 
+
+
 The three exercises are:
 
-1 - [Lexers and regular expressions](1-regexes) (due Tue 29 Jan at 23:59).
+1 - [Lexers and regular expressions](1-regexes) (due Tue 29 Jan at 23:59). 
 
 2 - [Parsers and ASTs](2-parsers) (due Tue 12 Feb at 23:59).
 
