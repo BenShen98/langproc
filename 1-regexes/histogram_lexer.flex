@@ -7,11 +7,16 @@
 
 /* Bring in our declarations for token types and
    the yylval variable. */
+
+#define YYLENG
+
+
 #include "histogram.hpp"
 
 
 #include <string>
 #include <cstdlib>
+
 
 
 // This is to work around an irritating bug in Flex

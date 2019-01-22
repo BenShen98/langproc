@@ -92,3 +92,5 @@ else
         echo "         Make sure you do a final run on a lab machine or an Ubuntu VM"
     fi
 fi
+
+exit $(( ${CHECKED} - ${PASSED} ))

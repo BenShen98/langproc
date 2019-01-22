@@ -27,8 +27,10 @@ extern TokenValue yylval;
 // returned.
 extern int yylex();
 
+#endif
+
 // when input is string, use yyleng to get char* length
 // use string constructor(const char* s, size_t n) to ensure code still work with non-visiable char (eg 0x00)
+#ifndef YYLENG
 extern size_t yyleng;
-
 #endif
