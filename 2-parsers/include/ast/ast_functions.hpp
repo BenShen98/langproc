@@ -26,6 +26,11 @@ public:
         dst<<" )";
     }
 
+    ~Function() override{
+      delete arg;
+    }
+
+
 
 };
 

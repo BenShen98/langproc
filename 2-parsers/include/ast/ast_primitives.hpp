@@ -8,18 +8,18 @@ class Variable
     : public Expression
 {
 private:
-    std::string id;
+    const std::string* id;
 public:
-    Variable(const std::string *_id)
-        : id(*_id)
+    Variable(const std::string *_id):
+    id(_id)
     {}
 
     const std::string getId() const
-    { return id; }
+    { return *id; }
 
     virtual void print(std::ostream &dst) const override
     {
-        dst<<id;
+        dst<<*id;
     }
 
     virtual double evaluate(
@@ -27,7 +27,11 @@ public:
     ) const override
     {
         // If the binding does not exist, this will throw an error
-        return bindings.at(id);
+        return bindings.at(*id);
+    }
+
+    ~Variable()override{
+      delete id;
     }
 };
 
@@ -55,6 +59,7 @@ public:
     {
         return value;
     }
+
 };
 
 

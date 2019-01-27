@@ -36,6 +36,11 @@ public:
         right->print(dst);
         dst<<" )";
     }
+
+    ~Operator() override{
+      delete left;
+      delete right;
+    }
 };
 
 class AddOperator
