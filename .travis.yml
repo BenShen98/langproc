@@ -10,7 +10,7 @@ before_install:
 - chmod u+x -R ./scripts/
 - ./scripts/dependencies.sh
 script:
-- ./scripts/1-regexes.sh
+- ./scripts/2-parser.sh
 branches:
   only:
     - master
