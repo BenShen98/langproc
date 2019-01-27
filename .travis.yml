@@ -10,7 +10,7 @@ before_install:
 - chmod u+x -R ./scripts/
 - ./scripts/dependencies.sh
 script:
-- ./scripts/2-parser.sh
+- ./scripts/2-parsers.sh
 branches:
   only:
     - master
