@@ -22,7 +22,7 @@
 
 %token T_MINUS  T_PLUS
 %token T_DIVIDE T_TIMES
-%left  T_EXPONENT         /* not implement yet */
+%right  T_EXPONENT         /* right-associativity of `^`  https://en.wikipedia.org/wiki/Operator_associativity */
 %token T_LBRACKET T_RBRACKET
 %token T_LOG T_EXP T_SQRT
 %token T_NUMBER T_VARIABLE
@@ -51,6 +51,7 @@ EXPR    : TERM                { $$ = $1; }
 TERM    : FACTOR              { $$ = $1; }
         | TERM T_TIMES FACTOR { $$ = new MulOperator( $1, $3 ); }
         | TERM T_DIVIDE FACTOR { $$ = new DivOperator( $1, $3 ); }
+        | FACTOR T_EXPONENT TERM { $$ = new ExpOperator( $1, $3 ); }
 
 FACTOR  : T_NUMBER            {  $$ = new Number( $1 ); }
         | T_VARIABLE          {  $$ = new Variable( $1 ); }
