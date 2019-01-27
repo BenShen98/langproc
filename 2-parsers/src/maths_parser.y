@@ -20,14 +20,16 @@
   std::string *string;
 }
 
-%token T_TIMES T_DIVIDE T_PLUS T_MINUS T_EXPONENT
+%token T_MINUS  T_PLUS
+%token T_DIVIDE T_TIMES
+%left  T_EXPONENT         /* not implement yet */
 %token T_LBRACKET T_RBRACKET
 %token T_LOG T_EXP T_SQRT
 %token T_NUMBER T_VARIABLE
 
-%type <expr> EXPR TERM FACTOR
+%type <expr> EXPR TERM FACTOR FUNCTION_NAME
 %type <number> T_NUMBER
-%type <string> T_VARIABLE T_LOG T_EXP T_SQRT FUNCTION_NAME
+%type <string> T_VARIABLE T_LOG T_EXP T_SQRT
 
 %start ROOT
 
@@ -53,16 +55,14 @@ TERM    : FACTOR              { $$ = $1; }
 FACTOR  : T_NUMBER            {  $$ = new Number( $1 ); }
         | T_VARIABLE          {  $$ = new Variable( $1 ); }
         | T_LBRACKET EXPR T_RBRACKET { $$ = $2; }
+        | FUNCTION_NAME       { $$ = $1; }
 
-/* TODO-5 : Add support log(x), by modifying the rule for FACTOR. */
 /* CAN function be term rather than factor??? */
-FACTOR  : T_LOG T_LBRACKET EXPR T_RBRACKET    {  $$ = new LogFunction( $3 ); }
-        | T_EXP T_LBRACKET EXPR T_RBRACKET    {  $$ = new ExpFunction( $3 ); }
-        | T_SQRT T_LBRACKET EXPR T_RBRACKET    {  $$ = new SqrtFunction( $3 ); }
+FUNCTION_NAME   : T_LOG T_LBRACKET EXPR T_RBRACKET    {  $$ = new LogFunction( $3 ); }
+                | T_EXP T_LBRACKET EXPR T_RBRACKET    {  $$ = new ExpFunction( $3 ); }
+                | T_SQRT T_LBRACKET EXPR T_RBRACKET   {  $$ = new SqrtFunction( $3 ); }
 
 
-/* TODO-6 : Extend support to other functions. Requires modifications here, and to FACTOR. */
-/* FUNCTION_NAME : T_LOG { $$ = new std::string("log"); } */
 
 %%
 
