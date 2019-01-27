@@ -7,7 +7,7 @@ os:
 before_install:
 - echo $LANG
 - echo $LC_ALL
-- chmod u+x -R ./scripts/
+- chmod u+x ./scripts/dependencies.sh
 - ./scripts/dependencies.sh
 script:
 - ./scripts/2-parsers.sh
