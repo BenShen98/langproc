@@ -49,9 +49,9 @@ EXPR : TERM                 { $$ = $1; }
 /* TODO-4 : Add support (x*6) and (z/11). */
 TERM : FACTOR               { $$ = $1; }
 
-/* TODO-2 : Add a rule for variable, base on the pattern of number. */
-FACTOR : T_NUMBER           { /* TODO-1 : uncomment this:   $$ = new Number( $1 ); */ }
-       | T_LBRACKET EXPR T_RBRACKET { $$ = $2; }
+FACTOR  : T_NUMBER            {  $$ = new Number( $1 ); }
+        | T_VARIABLE          {  $$ = new Variable( $1 ); }
+        | T_LBRACKET EXPR T_RBRACKET { $$ = $2; }
 
 /* TODO-5 : Add support log(x), by modifying the rule for FACTOR. */
 
@@ -64,7 +64,7 @@ const Expression *g_root; // Definition of variable (to match declaration earlie
 
 const Expression *parseAST()
 {
-  g_root=0;
+  g_root=0; // Expression == 0??? call Number constructor???
   yyparse();
   return g_root;
 }

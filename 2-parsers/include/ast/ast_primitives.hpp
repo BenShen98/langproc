@@ -10,8 +10,8 @@ class Variable
 private:
     std::string id;
 public:
-    Variable(const std::string &_id)
-        : id(_id)
+    Variable(const std::string *_id)
+        : id(*_id)
     {}
 
     const std::string getId() const
@@ -29,7 +29,7 @@ public:
         // TODO-B : Run bin/eval_expr with a variable binding to make sure you understand how this works.
         // If the binding does not exist, this will throw an error
         return bindings.at(id);
-    }    
+    }
 };
 
 class Number
