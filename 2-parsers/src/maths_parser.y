@@ -20,43 +20,47 @@
   std::string *string;
 }
 
-%token T_TIMES T_DIVIDE T_PLUS T_MINUS T_EXPONENT
+%token T_MINUS  T_PLUS
+%token T_DIVIDE T_TIMES
+%token T_EXPONENT
 %token T_LBRACKET T_RBRACKET
 %token T_LOG T_EXP T_SQRT
 %token T_NUMBER T_VARIABLE
 
-%type <expr> EXPR TERM FACTOR
+%type <expr> EXPR TERM FACTOR FUNCTION_NAME EXPONENT
 %type <number> T_NUMBER
-%type <string> T_VARIABLE T_LOG T_EXP T_SQRT FUNCTION_NAME
+%type <string> T_VARIABLE T_LOG T_EXP T_SQRT
 
 %start ROOT
 
 %%
 
-/* The TODO notes a are just a guide, and are non-exhaustive.
-   The expectation is that you do each one, then compile and test.
-   Testing should be done using patterns that target the specific
-   feature; the testbench is there to make sure that you haven't
-   broken anything while you added it.
+/* In the code below, the precedence increases move down the code
+ FUNCTION_NAME > FACTOR > EXPONENT > TERM > ROOT
+ ONLY EXPONENT is right-associative  https://en.wikipedia.org/wiki/Operator_associativity
 */
 
 ROOT : EXPR { g_root = $1; }
 
-/* TODO-3 : Add support for (x+6) and (10-y). You'll need to add production rules, and create an AddOperator or
-            SubOperator. */
-EXPR : TERM                 { $$ = $1; }
+EXPR      : TERM                        { $$ = $1; }
+          | EXPR T_PLUS TERM            { $$ = new AddOperator( $1, $3 ); }
+          | EXPR T_MINUS TERM           { $$ = new SubOperator( $1, $3 ); }
 
-/* TODO-4 : Add support (x*6) and (z/11). */
-TERM : FACTOR               { $$ = $1; }
+TERM      : EXPONENT                    { $$ = $1; }
+          | TERM T_TIMES EXPONENT       { $$ = new MulOperator( $1, $3 ); }
+          | TERM T_DIVIDE EXPONENT      { $$ = new DivOperator( $1, $3 ); }
 
-/* TODO-2 : Add a rule for variable, base on the pattern of number. */
-FACTOR : T_NUMBER           { /* TODO-1 : uncomment this:   $$ = new Number( $1 ); */ }
-       | T_LBRACKET EXPR T_RBRACKET { $$ = $2; }
+EXPONENT  : FACTOR T_EXPONENT EXPONENT  { $$ = new ExpOperator( $1, $3 ); }
+          | FACTOR                      { $$ = $1; }
 
-/* TODO-5 : Add support log(x), by modifying the rule for FACTOR. */
+FACTOR    : T_NUMBER                    {  $$ = new Number( $1 ); }
+          | T_VARIABLE                  {  $$ = new Variable( $1 ); }
+          | T_LBRACKET EXPR T_RBRACKET  { $$ = $2; }
+          | FUNCTION_NAME               { $$ = $1; }
 
-/* TODO-6 : Extend support to other functions. Requires modifications here, and to FACTOR. */
-FUNCTION_NAME : T_LOG { $$ = new std::string("log"); }
+FUNCTION_NAME   : T_LOG T_LBRACKET EXPR T_RBRACKET    {  $$ = new LogFunction( $3 ); }
+                | T_EXP T_LBRACKET EXPR T_RBRACKET    {  $$ = new ExpFunction( $3 ); }
+                | T_SQRT T_LBRACKET EXPR T_RBRACKET   {  $$ = new SqrtFunction( $3 ); }
 
 %%
 
@@ -64,7 +68,7 @@ const Expression *g_root; // Definition of variable (to match declaration earlie
 
 const Expression *parseAST()
 {
-  g_root=0;
+  g_root=0; // Expression == 0??? call Number constructor???
   yyparse();
   return g_root;
 }

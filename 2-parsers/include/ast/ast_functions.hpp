@@ -8,9 +8,8 @@
 class Function
     : public Expression
 {
-private:
-    ExpressionPtr arg;
 protected:
+    ExpressionPtr arg;
     Function(ExpressionPtr _arg)
         : arg(_arg)
     {}
@@ -27,13 +26,12 @@ public:
         dst<<" )";
     }
 
-    virtual double evaluate(
-        const std::map<std::string,double> &bindings
-    ) const override
-    {
-        // NOTE : This should be implemented by the inheriting function nodes, e.g. LogFunction
-        throw std::runtime_error("FunctionOperator::evaluate is not implemented.");
+    ~Function() override{
+      delete arg;
     }
+
+
+
 };
 
 class LogFunction
@@ -46,8 +44,15 @@ public:
 
     virtual const char *getFunction() const
     { return "log"; }
-    
-    // TODO-E : Override evaluate, and implement it
+
+    virtual double evaluate (
+        const std::map<std::string,double> &bindings
+    ) const override
+    {
+        double v=arg->evaluate(bindings);
+        return log(v); //log -> base e
+    }
+
 };
 
 class ExpFunction
@@ -60,6 +65,14 @@ public:
 
     virtual const char *getFunction() const
     { return "exp"; }
+
+    virtual double evaluate (
+        const std::map<std::string,double> &bindings
+    ) const override
+    {
+        double v=arg->evaluate(bindings);
+        return exp(v);
+    }
 };
 
 class SqrtFunction
@@ -72,6 +85,14 @@ public:
 
     virtual const char *getFunction() const
     { return "sqrt"; }
+
+    virtual double evaluate (
+        const std::map<std::string,double> &bindings
+    ) const override
+    {
+        double v=arg->evaluate(bindings);
+        return sqrt(v);
+    }
 };
 
 

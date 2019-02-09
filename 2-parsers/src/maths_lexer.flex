@@ -9,7 +9,9 @@ extern "C" int fileno(FILE *stream);
 
 %%
 [*]             { return T_TIMES; }
+[\/]             { return T_DIVIDE; }
 [+]             { return T_PLUS; }
+[-]             { return T_MINUS; }
 [\^]             { return T_EXPONENT; }
 
 [(]             { return T_LBRACKET; }

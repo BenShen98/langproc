@@ -62,12 +62,12 @@ while IFS=, read -r INPUT_LINE REF_LINE BINDINGS REF_VALUE; do
     echo "Value : ${GOT_VALUE}"
     if [[ "${GOT_VALUE}" != "${REF_VALUE}" ]]; then
         echo ""
-        echo "ERROR"        
+        echo "ERROR"
     else
         PASSED=$(( ${PASSED}+1 ));
     fi
     CHECKED=$(( ${CHECKED}+1 ));
-    
+
     echo "${INPUT_LINE},${GOT_LINE},${BINDINGS},${GOT_VALUE}" >> test/valid_expressions.got.txt
 
 done < <( cat test/valid_expressions.input.txt | ${DOS2UNIX})
@@ -89,7 +89,7 @@ while IFS=, read -r INPUT_LINE; do
     if [[ ${CODE} -eq "0" ]]; then
         echo ""
         echo "ERROR"
-        PASSED=$(( ${PASSED}-1 ));        
+        PASSED=$(( ${PASSED}-1 ));
     fi
 done < <( cat test/invalid_expressions.input.txt | ${DOS2UNIX} )
 
@@ -113,3 +113,5 @@ else
         echo "         Make sure you do a final run on a lab machine or an Ubuntu VM"
     fi
 fi
+
+exit $(( ${CHECKED} - ${PASSED} ))
