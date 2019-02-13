@@ -12,6 +12,7 @@ struct Tree;
 
 typedef std::shared_ptr<Tree> TreePtr;
 
+
 struct Tree
 {
     Tree(std::string _type, std::string _value, const std::vector<TreePtr> &_branches)
@@ -19,12 +20,12 @@ struct Tree
         , value(_value)
         , branches(_branches)
     {}
-    
+
     Tree(std::string _type, std::string _value)
         : type(_type)
         , value(_value)
     {}
-    
+
     template<class ...TArgs>
     Tree(std::string _type, TArgs ...args)
         : type(_type)
