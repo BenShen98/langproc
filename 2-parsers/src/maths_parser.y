@@ -50,6 +50,7 @@ TERM      : EXPONENT                    { $$ = $1; }
           | TERM T_TIMES EXPONENT       { $$ = new MulOperator( $1, $3 ); }
           | TERM T_DIVIDE EXPONENT      { $$ = new DivOperator( $1, $3 ); }
 
+
 EXPONENT  : FACTOR T_EXPONENT EXPONENT  { $$ = new ExpOperator( $1, $3 ); }
           | FACTOR                      { $$ = $1; }
 
