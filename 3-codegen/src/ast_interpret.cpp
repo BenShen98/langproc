@@ -34,7 +34,7 @@ int32_t Interpret(
 
     }else if(program->type=="Output"){
       int32_t val=Interpret(context, program->branches.at(0));
-      std::cout<<val<<std::flush;
+      // std::cout<<val<<std::flush;
       return val;
 
     }else if(program->type=="LessThan"){
