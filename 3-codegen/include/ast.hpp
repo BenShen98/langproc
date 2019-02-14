@@ -41,7 +41,7 @@ struct Tree
 
 // Establishes a label (jump target)
 inline void label(const std::string& str){
-  std::cout<<":"<<str<<" "<<std::flush;//space or change line?
+  std::cout<<":"<<str<<'\n'<<std::flush;//space or change line?
 }
 
 // Loads the decimal immediate value into the destination register
@@ -90,12 +90,12 @@ inline void lt(const std::string& regDst, const std::string& regA, const std::st
 
 // If regA == regB, then jump to label.
 inline void beq(const std::string& regA, const std::string& regB, const std::string& label){
-  std::cout<<"beq "<<regA<<' '<<regB<<" :"<<label<<'\n'<<std::flush;
+  std::cout<<"beq "<<regA<<' '<<regB<<" "<<label<<'\n'<<std::flush;
 }
 
 // If regA != regB, then jump to label.
 inline void bne(const std::string& regA, const std::string& regB, const std::string& label){
-  std::cout<<"bne "<<regA<<' '<<regB<<" :"<<label<<'\n'<<std::flush;
+  std::cout<<"bne "<<regA<<' '<<regB<<" "<<label<<'\n'<<std::flush;
 }
 
 // Halt the program and return value in srcReg.
