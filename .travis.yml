@@ -2,8 +2,19 @@ language: cpp
 sudo: required
 compiler:
 - g++
-os:
-- linux
+dist: xenial
+addons:
+  apt:
+    packages:
+    - gdb
+    - make
+    - dos2unix
+    - git
+    - bison
+    - flex
+    - g++-mips-linux-gnu
+    - gdb-multiarch
+    - qemu
 before_install:
 - echo $LANG
 - echo $LC_ALL
