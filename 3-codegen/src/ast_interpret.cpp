@@ -17,12 +17,9 @@ int32_t Interpret(
       return std::atol(program->type.c_str());
 
     }else if( regex_match(program->type, reId) ){
-      //NOTE TODO: Due to the spec, the behaviour is defined?
-      //Out of range exception will be throw if redId was not previously defined
       return context.bindings.at(program->type);
 
     }else if(program->type=="Input"){
-
       int input;
       std::cin>>input;
       return input;
@@ -45,7 +42,6 @@ int32_t Interpret(
     }else if(program->type=="Add"){
       int A=Interpret(context,program->branches.at(0));
       int B=Interpret(context,program->branches.at(1));
-
       return A+B;
 
     }else if(program->type=="Sub"){
