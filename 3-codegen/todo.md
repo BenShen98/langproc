@@ -1,0 +1,4 @@
+- [ ] check if there should be space to seperate output
+- [ ] check if a variable is not initialized, it can not be used, i.e. NEVER Seq[ Assign : x [ x ] ]
+- [ ] check space is always used to seperate code i.e. Seq [ ] , NEVER Seq[]
+- [ ] are some functions in ast.hpp not needed?

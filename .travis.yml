@@ -2,16 +2,26 @@ language: cpp
 sudo: required
 compiler:
 - g++
-os:
-- linux
+dist: xenial
+addons:
+  apt:
+    packages:
+    - gdb
+    - make
+    - dos2unix
+    - git
+    - bison
+    - flex
+    - g++-mips-linux-gnu
+    - gdb-multiarch
+    - qemu
 before_install:
 - echo $LANG
 - echo $LC_ALL
 - chmod u+x ./scripts/dependencies.sh
 - ./scripts/dependencies.sh
 script:
-- ./scripts/1-regexes.sh
-- ./scripts/2-parsers.sh
+- ./scripts/3-codegen.sh
 branches:
   only:
     - master
