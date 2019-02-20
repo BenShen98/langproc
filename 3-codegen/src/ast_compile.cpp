@@ -53,18 +53,13 @@ inline void copyReg(const std::string& regDst, const std::string& reg){
 
 static std::string makeReg()
 {
-    return "reg_"+std::to_string(makeNameUnq++);
+    return "Reg_"+std::to_string(makeNameUnq++);
 }
 
 
 static std::string makeLabel()
 {
-    return "label_"+std::to_string(makeNameUnq++);
-}
-
-static std::string makeDebugLabel(std::string& name)
-{
-    return "label_"+name;
+    return "Label_"+std::to_string(makeNameUnq++);
 }
 
 void CompileRec(
@@ -76,7 +71,6 @@ void CompileRec(
 
     if( regex_match( program->type, reNum ) ){
         constant(destReg,program->type);
-        // std::cout<<"const "<<destReg<<" "<<program->type<<std::endl;
 
     }else if( regex_match( program->type, reId ) ){
         //a snipshot of variable is created, passed as the return value
@@ -116,8 +110,8 @@ void CompileRec(
 
     }else if(program->type=="Assign"){
       //introduce a new variable register named program->value
-      CompileRec(program->value,program->branches.at(0));
-      copyReg(destReg,program->value);
+      CompileRec(destReg,program->branches.at(0));
+      copyReg(program->value,destReg);
 
 
     }else if(program->type=="Seq"){

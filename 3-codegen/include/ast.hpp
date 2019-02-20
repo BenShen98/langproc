@@ -41,7 +41,7 @@ struct Tree
 
 // Establishes a label (jump target)
 inline void label(const std::string& str){
-  std::cout<<":"<<str<<'\n'<<std::flush;//space or change line?
+  std::cout<<":"<<str<<'\n'<<std::flush;
 }
 
 // Loads the decimal immediate value into the destination register
@@ -102,47 +102,6 @@ inline void bne(const std::string& regA, const std::string& regB, const std::str
 inline void halt(const std::string& Reg){
   std::cout<<"halt "<<Reg<<'\n'<<std::flush;
 }
-
-
-
-
-
-// inline TreePtr Number(int32_t x)
-// //{ return std::make_shared<Tree>("Number", std::to_string(x)); }
-// { return std::make_shared<Tree>(std::to_string(x)); }
-//
-// inline TreePtr Variable(std::string id)
-// //{ return std::make_shared<Tree>("Variable", id); }
-// { return std::make_shared<Tree>(id); }
-//
-// inline TreePtr Input(std::string id)
-// { return std::make_shared<Tree>("Input", id); }
-//
-// inline TreePtr Output(TreePtr expr)
-// { return std::make_shared<Tree>("Output", expr); }
-//
-//
-// inline TreePtr Add(TreePtr left, TreePtr right)
-// { return std::make_shared<Tree>("Add", left, right); }
-//
-// inline TreePtr Sub(TreePtr left, TreePtr right)
-// { return std::make_shared<Tree>("Sub", left, right); }
-//
-// inline TreePtr LessThan(TreePtr left, TreePtr right)
-// { return std::make_shared<Tree>("LessThan", left, right); }
-//
-//
-// inline TreePtr Seq(std::initializer_list<TreePtr> statements)
-// { return std::make_shared<Tree>("Seq", statements); }
-//
-// inline TreePtr While(TreePtr cond, TreePtr stat)
-// { return std::make_shared<Tree>("While", cond, stat ); }
-//
-// //inline TreePtr IfElse(TreePtr cond, TreePtr stat1, TreePtr stat2)
-// //{ return std::make_shared<Tree>("IfElse", cond, stat1, stat2); }
-//
-// inline TreePtr If(TreePtr cond, TreePtr stat1)
-// { return std::make_shared<Tree>("If", cond, stat1); }
 
 TreePtr Parse(
     std::istream &src
